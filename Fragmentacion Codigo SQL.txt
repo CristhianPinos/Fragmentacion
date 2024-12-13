@@ -1,0 +1,25 @@
+--Fragmentacion Vertical
+INSERT Cliente1Vertical (id, nombres, apellidos)
+SELECT IdCliente, Nombres, Apellidos FROM Clientes
+
+INSERT Cliente2Vertical (id, Direccion, Telefono, Correo)
+SELECT IdCliente, Direccion, Telefono, Correo FROM Clientes
+
+SELECT * FROM Clientes
+SELECT c1.id, c1.nombres, c1.apellidos, c2.direccion, c2.telefono, c2.correo FROM Cliente1Vertical c1
+inner join Cliente2Vertical c2 on c1.id = c2.id
+
+--Fragmentacion Horizontal
+INSERT INTO Cliente1Horizontal (id, Nombres, Apellidos, Direccion, Telefono, Correo)
+SELECT IdCliente, Nombres, Apellidos, Direccion, Telefono, Correo
+FROM Clientes
+WHERE IdCliente % 2 = 0;
+
+INSERT INTO Cliente2Horizontal (id, Nombres, Apellidos, Direccion, Telefono, Correo)
+SELECT IdCliente, Nombres, Apellidos, Direccion, Telefono, Correo
+FROM Clientes
+WHERE IdCliente % 2 <> 0;
+
+SELECT * FROM Cliente1Horizontal
+UNION ALL
+SELECT * FROM Cliente2Horizontal
